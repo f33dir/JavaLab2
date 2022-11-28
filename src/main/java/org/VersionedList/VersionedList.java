@@ -1,65 +1,58 @@
 package org.VersionedList;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 public class VersionedList<T> implements Iterable<T> {
-    private T[] data;
 
-    private void ensureCapacityInternal(int minCapacity) {
-
-        if (data == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
-            minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);
-        }
-        ensureExplicitCapacity(minCapacity);
+    private ArrayList<Cell<T>> data = new ArrayList<>();
+    public void add(T input){
+        data.add(new Cell(input));
+    }
+    public T get(int index){
+        return data.get(index).Get();
     }
 
-
-    public int size() {
-        return data.length;
+    public void remove(int index){
+        data.remove(index);
     }
-
-    public boolean isEmpty() {
-        return data.length == 0;
-    }
-
-
-    public boolean contains(Object o) {
-        return Arrays.stream(data).findAny() != null;
-    }
-
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<T> iterator(){
         return new VersionedIterator();
     }
-
-    public boolean add(T t) {
-        return false;
-    }
-
-
-    public boolean remove(Object o) {
-        return false;
-    }
-
-    class VersionedIterator implements Iterator<T>{
-
-        private int  index;
-        private T[] array;
+    class VersionedIterator implements Iterator<T>
+    {
+        private int index = 0;
+        private Cell<T>[] savedArr;
 
         VersionedIterator(){
-            index = 0;
-
+            savedArr = new Cell[data.size()];
+            savedArr = data.toArray(savedArr);
         }
         @Override
         public boolean hasNext() {
-            return index < array.length;
+            return index < savedArr.length;
         }
 
         @Override
         public T next() {
-            return null;
+            T output = savedArr[index].Get();
+            index++;
+            return output;
         }
 
     }
-
+    class Cell<T>{
+        private T content;
+        public T Get(){
+            return content;
+        };
+        public boolean Set(T input){
+            content = input;
+            return true;
+        }
+        public Cell(T input){
+            content = input;
+        }
+    }
 }
