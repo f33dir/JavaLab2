@@ -1,7 +1,10 @@
 package org.JavaLab2;
 
+import org.FuturePromise.Future;
+import org.FuturePromise.FutureExpression;
+import org.FuturePromise.PromiseExpression;
 import org.VersionedList.VersionedList;
-
+import org.FuturePromise.Promise;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
@@ -15,5 +18,22 @@ public class Main {
         while (iter1.hasNext()){
             System.out.println(iter1.next());
         }
+//        PromiseExpression expression = (reject,resolve) ->{
+//            System.out.println(1);
+//            Thread.sleep(4000);
+//            resolve.apply();
+//        };
+//        var promise =  new Promise(expression);
+//        promise.run();
+//        promise.await();
+//        System.out.println(2);
+
+        FutureExpression<String> expression1 = () -> {
+            Thread.sleep(4000);
+            return "Done";
+        };
+
+        var future = new Future<String>(expression1);
+        System.out.println(future.await());
     }
 }
