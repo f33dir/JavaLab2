@@ -1,0 +1,19 @@
+package org.JavaLab2;
+
+import org.VersionedList.VersionedList;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello world!");
+
+        var arr = new VersionedList<Integer>();
+        arr.add(5);
+        arr.add(6);
+        var iter1 = arr.iterator();
+        arr.add(3);
+        arr.add(7);
+        while (iter1.hasNext()){
+            System.out.println(iter1.next());
+        }
+    }
+}
