@@ -18,15 +18,15 @@ public class Main {
         while (iter1.hasNext()){
             System.out.println(iter1.next());
         }
-//        PromiseExpression expression = (reject,resolve) ->{
-//            System.out.println(1);
-//            Thread.sleep(4000);
-//            resolve.apply();
-//        };
-//        var promise =  new Promise(expression);
-//        promise.run();
-//        promise.await();
-//        System.out.println(2);
+        PromiseExpression expression = (reject,resolve) ->{
+            System.out.println(1);
+            Thread.sleep(4000);
+            resolve.apply();
+        };
+        var promise =  new Promise(expression);
+        promise.run();
+        promise.await();
+        System.out.println(2);
 
         FutureExpression<String> expression1 = () -> {
             Thread.sleep(4000);
